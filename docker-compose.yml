@@ -1,0 +1,45 @@
+version: '3'
+services:
+   db:
+    image: postgres:alpine
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: KION
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: Root123
+    container_name: db
+   server:
+    build: ./back
+    ports:
+      - 5000:5000
+    environment:
+      DB_NAME: KION
+      DB_USER: root
+      DB_PASSWORD: Root123
+      SECRET: secret
+      DB_PORT: 5432
+      DB_HOST: db
+      FFMPEG: ffmpeg
+    depends_on:
+      - db
+    restart:
+      on-failure
+    container_name: server
+   client:
+    build: ./front
+    ports:
+      - 81:80
+    volumes:
+      - server-assets:/server/assets
+    depends_on:
+      - server
+    restart:
+      on-failure
+    container_name: client
+volumes:
+  db-data:
+  server-assets:
