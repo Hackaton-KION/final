@@ -10,7 +10,7 @@
 
 Для начала требуется клонировать репозиторий плеера:
 
-### git clone --recurse-submodules https://git.codenrock.com/true-tech-hack/cnrprod-team-27656/film-adaptation.git
+### git clone --recurse-submodules https://github.com/Hackaton-KION/final.git
 
 После клонирования для запуска необходимо в корневой папке проекта запустить команды:
 
