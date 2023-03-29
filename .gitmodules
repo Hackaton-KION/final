@@ -1,0 +1,6 @@
+[submodule "back"]
+    path = back
+    url = https://github.com/Hackaton-KION/Backend.git
+[submodule "front"]
+    path = front
+    url = https://github.com/Hackaton-KION/Frontend.git
