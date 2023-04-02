@@ -12,34 +12,33 @@ services:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: Root123
     container_name: db
-   server:
+   api:
     build: ./back
     ports:
       - 5000:5000
+    volumes:
+      - static:/app/static
     environment:
-      DB_NAME: KION
-      DB_USER: root
-      DB_PASSWORD: Root123
+      PORT: 5000
+      DATABASE_URL: 'postgresql://root:Root123@db:5432/KION'
       SECRET: secret
-      DB_PORT: 5432
-      DB_HOST: db
       FFMPEG: ffmpeg
     depends_on:
       - db
     restart:
       on-failure
-    container_name: server
+    container_name: api
    client:
     build: ./front
+    environment:
+      VITE_API_URL: http://api:5000/api
     ports:
       - 81:80
-    volumes:
-      - server-assets:/server/assets
     depends_on:
-      - server
+      - api
     restart:
       on-failure
     container_name: client
 volumes:
   db-data:
-  server-assets:
+  static:
